@@ -53,3 +53,22 @@ app.get('/api/countries/:countryCode/grades/:gradeNumber/subjects', async (req, 
   try {
     const result = await pool.query(
       `SELECT s.code, s.name_ar, s.name_en, s.name_fr, s.icon
+       FROM curriculum_subjects cs
+       JOIN subjects s ON s.code = cs.subject_code
+       JOIN countries c ON c.code = cs.country_code
+       JOIN grades g ON g.number = cs.grade_number
+       WHERE c.code = $1 AND g.number = $2
+       ORDER BY cs.sort_order`,
+      [countryCode, gradeNumber]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch subjects' });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`manahej-backend listening on port ${PORT}`);
+});
