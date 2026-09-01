@@ -1,0 +1,17 @@
+{
+  "name": "manahej-backend",
+  "version": "1.0.0",
+  "description": "API backend for the educational curricula platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
